@@ -1,3 +1,4 @@
+# Function for calculating trees encountered on specified slope
 def count_trees_hit(map, dx, dy)
     number_of_trees_hit = 0
     x = dx
@@ -17,6 +18,7 @@ end
 # Load all lines into list
 lines = File.readlines("input.txt")
 
+# Calculate for each slope
 slope_1_1 = count_trees_hit(lines, 1, 1)
 slope_3_1 = count_trees_hit(lines, 3, 1)
 slope_5_1 = count_trees_hit(lines, 5, 1)
