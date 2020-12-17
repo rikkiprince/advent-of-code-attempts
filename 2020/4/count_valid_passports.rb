@@ -14,7 +14,7 @@ def get_hash_from_input(lines)
     }
 end
 
-def is_passport_valid(passport)
+def are_fields_present(passport)
   ["byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"].all? { |field|
     passport.has_key?(field)
   }
@@ -24,7 +24,7 @@ end
 lines = File.readlines("input.txt")
 passports = get_hash_from_input(lines)
 number_of_valid_passports = passports.filter { |passport|
-  is_passport_valid(passport)
+  are_fields_present(passport)
 }.count()
 
 puts number_of_valid_passports
