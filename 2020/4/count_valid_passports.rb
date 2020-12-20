@@ -14,14 +14,20 @@ def get_hash_from_input(lines)
     }
 end
 
-def are_fields_present(passport)
-  ["byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"].all? { |field|
-    if !passport.has_key?(field) then
-      # puts "missing #{field}"
-      return false
-    end
-    true
-  }
+class Passport
+  def initialize(passport_hash)
+    @passport = passport_hash
+  end
+
+  def are_fields_present
+    ["byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"].all? { |field|
+      if !@passport.has_key?(field) then
+        # puts "missing #{field}"
+        return false
+      end
+      true
+    }
+  end
 end
 
 def height_is_valid(passport)
@@ -78,11 +84,13 @@ passports = get_hash_from_input(lines)
 puts "Total: #{passports.count()}"
 
 number_of_passports_with_correct_fields = passports.filter { |passport|
-  are_fields_present(passport)
+  p = Passport.new(passport)
+  p.are_fields_present
 }.count()
 puts "Correct fields present: #{number_of_passports_with_correct_fields}"
 
 number_of_passports_with_valid_data = passports.filter { |passport|
-  are_fields_present(passport) && data_is_valid(passport)
+  p = Passport.new(passport)
+  p.are_fields_present && data_is_valid(passport)
 }.count()
 puts "Valid: #{number_of_passports_with_valid_data}"
