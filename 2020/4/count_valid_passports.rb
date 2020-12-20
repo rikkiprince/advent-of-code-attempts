@@ -28,20 +28,31 @@ class Passport
       true
     }
   end
-end
 
-def height_is_valid(passport)
-  m = /([[:digit:]]+)(cm|in)/.match(passport["hgt"])
-  return false if !m
-  units = m[2]
-  height = m[1].to_i
-  if units == "cm" then
-    return height.between?(150,193)
-  elsif units == "in" then
-    return height.between?(59,76)
-  else
-    # puts "height is invalid"
-    return false
+  def height_is_valid
+    m = /([[:digit:]]+)(cm|in)/.match(@passport["hgt"])
+    return false if !m
+    units = m[2]
+    height = m[1].to_i
+    if units == "cm" then
+      return height.between?(150,193)
+    elsif units == "in" then
+      return height.between?(59,76)
+    else
+      return false
+    end
+  end
+
+  def hair_colour_is_valid
+    @passport["hcl"] =~ /^#[[:xdigit:]]{6}$/
+  end
+  
+  def eye_colour_is_valid
+    ["amb","blu","brn","gry","grn","hzl","oth"].include?(@passport["ecl"])
+  end
+  
+  def passport_id_is_valid
+    @passport["pid"] =~ /^[[:digit:]]{9}$/
   end
 end
 
@@ -55,26 +66,14 @@ def year_is_valid(passport, key, start_year, end_year)
   end
 end
 
-def hair_colour_is_valid(passport)
-  passport["hcl"] =~ /^#[[:xdigit:]]{6}$/
-end
-
-def eye_colour_is_valid(passport)
-  ["amb","blu","brn","gry","grn","hzl","oth"].include?(passport["ecl"])
-end
-
-def passport_id_is_valid(passport)
-  passport["pid"] =~ /^[[:digit:]]{9}$/
-end
-
-def data_is_valid(passport)
+def data_is_valid(passport, p)
   return (year_is_valid(passport, "byr", 1920,2002) &&
           year_is_valid(passport, "iyr", 2010,2020) &&
           year_is_valid(passport, "eyr", 2020,2030) &&
-          height_is_valid(passport) &&
-          hair_colour_is_valid(passport) &&
-          eye_colour_is_valid(passport) &&
-          passport_id_is_valid(passport)
+          p.height_is_valid &&
+          p.hair_colour_is_valid &&
+          p.eye_colour_is_valid &&
+          p.passport_id_is_valid
   )
 end
 
@@ -91,6 +90,6 @@ puts "Correct fields present: #{number_of_passports_with_correct_fields}"
 
 number_of_passports_with_valid_data = passports.filter { |passport|
   p = Passport.new(passport)
-  p.are_fields_present && data_is_valid(passport)
+  p.are_fields_present && data_is_valid(passport, p)
 }.count()
 puts "Valid: #{number_of_passports_with_valid_data}"
