@@ -80,16 +80,16 @@ end
 # Load all lines into list
 lines = File.readlines("input.txt")
 passports = get_hash_from_input(lines)
-puts "Total: #{passports.count()}"
+puts "#{"Total:".rjust(23)} #{passports.count()}"
 
 number_of_passports_with_correct_fields = passports.filter { |passport|
   p = Passport.new(passport)
   p.are_fields_present
 }.count()
-puts "Correct fields present: #{number_of_passports_with_correct_fields}"
+puts "#{"Correct fields present:".rjust(23)} #{number_of_passports_with_correct_fields}"
 
 number_of_passports_with_valid_data = passports.filter { |passport|
   p = Passport.new(passport)
   p.are_fields_present && p.data_is_valid
 }.count()
-puts "Valid: #{number_of_passports_with_valid_data}"
+puts "#{"Data valid:".rjust(23)} #{number_of_passports_with_valid_data}"
