@@ -65,10 +65,22 @@ class Passport
     end
   end
 
+  def birth_year_is_valid
+    year_is_valid("byr", 1920,2002)
+  end
+
+  def issue_year_is_valid
+    year_is_valid("iyr", 2010,2020)
+  end
+
+  def expiration_year_is_valid
+    year_is_valid("eyr", 2020,2030)
+  end
+
   def data_is_valid
-    return (year_is_valid("byr", 1920,2002) &&
-            year_is_valid("iyr", 2010,2020) &&
-            year_is_valid("eyr", 2020,2030) &&
+    return (birth_year_is_valid &&
+            issue_year_is_valid &&
+            expiration_year_is_valid &&
             height_is_valid &&
             hair_colour_is_valid &&
             eye_colour_is_valid &&
