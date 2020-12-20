@@ -54,27 +54,27 @@ class Passport
   def passport_id_is_valid
     @passport["pid"] =~ /^[[:digit:]]{9}$/
   end
-end
 
-def year_is_valid(passport, key, start_year, end_year)
-  return false if passport[key].nil?
-  if passport[key] =~ /^[[:digit:]]{4}$/ && passport[key].to_i.between?(start_year,end_year) then
-    return true
-  else
-    # puts "#{key} invalid: #{passport[key]}"
-    return false
+  def year_is_valid(key, start_year, end_year)
+    return false if @passport[key].nil?
+    if @passport[key] =~ /^[[:digit:]]{4}$/ && @passport[key].to_i.between?(start_year,end_year) then
+      return true
+    else
+      # puts "#{key} invalid: #{passport[key]}"
+      return false
+    end
   end
-end
 
-def data_is_valid(passport, p)
-  return (year_is_valid(passport, "byr", 1920,2002) &&
-          year_is_valid(passport, "iyr", 2010,2020) &&
-          year_is_valid(passport, "eyr", 2020,2030) &&
-          p.height_is_valid &&
-          p.hair_colour_is_valid &&
-          p.eye_colour_is_valid &&
-          p.passport_id_is_valid
-  )
+  def data_is_valid
+    return (year_is_valid("byr", 1920,2002) &&
+            year_is_valid("iyr", 2010,2020) &&
+            year_is_valid("eyr", 2020,2030) &&
+            height_is_valid &&
+            hair_colour_is_valid &&
+            eye_colour_is_valid &&
+            passport_id_is_valid
+    )
+  end
 end
 
 # Load all lines into list
@@ -90,6 +90,6 @@ puts "Correct fields present: #{number_of_passports_with_correct_fields}"
 
 number_of_passports_with_valid_data = passports.filter { |passport|
   p = Passport.new(passport)
-  p.are_fields_present && data_is_valid(passport, p)
+  p.are_fields_present && p.data_is_valid
 }.count()
 puts "Valid: #{number_of_passports_with_valid_data}"
