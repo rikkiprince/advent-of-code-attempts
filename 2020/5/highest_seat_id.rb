@@ -12,7 +12,7 @@ def calculate_column_number(column_text)
 end
 
 # Load all lines into list
-lines = File.readlines("example.txt")
+lines = File.readlines("input.txt")
 
 s = lines.map do |boarding_pass|
   row_text,column_text = validate_boarding_pass(boarding_pass)
