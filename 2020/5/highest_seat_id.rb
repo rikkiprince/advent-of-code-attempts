@@ -14,11 +14,14 @@ end
 # Load all lines into list
 lines = File.readlines("example.txt")
 
-lines.each do |boarding_pass|
+s = lines.map do |boarding_pass|
   row_text,column_text = validate_boarding_pass(boarding_pass)
 
   row_number = calculate_row_number(row_text)
   column_number = calculate_column_number(column_text)
+  seat_id = row_number * 8 + column_number
 
-  puts "row #{row_number}, column #{column_number}, seat ID #{row_number * 8 + column_number}"
+  puts "row #{row_number}, column #{column_number}, seat ID #{seat_id}"
+  seat_id
 end
+puts s.max
