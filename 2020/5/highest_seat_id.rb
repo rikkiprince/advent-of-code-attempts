@@ -1,0 +1,24 @@
+def validate_boarding_pass(pass)
+  m = /^(?<row>[FB]{7})(?<column>[LR]{3})$/.match(pass)
+  return m["row"], m["column"]
+end
+
+def calculate_row_number(row_text)
+  row_text.gsub("F","0").gsub("B","1").to_i(2)
+end
+
+def calculate_column_number(column_text)
+  column_text.gsub("L","0").gsub("R","1").to_i(2)
+end
+
+# Load all lines into list
+lines = File.readlines("example.txt")
+
+lines.each do |boarding_pass|
+  row_text,column_text = validate_boarding_pass(boarding_pass)
+
+  row_number = calculate_row_number(row_text)
+  column_number = calculate_column_number(column_text)
+
+  puts "row #{row_number}, column #{column_number}, seat ID #{row_number * 8 + column_number}"
+end
