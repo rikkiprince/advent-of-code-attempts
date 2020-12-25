@@ -1,5 +1,3 @@
-require 'set'
-
 def validate_boarding_pass(pass)
   m = /^(?<row>[FB]{7})(?<column>[LR]{3})$/.match(pass)
   return m["row"], m["column"]
