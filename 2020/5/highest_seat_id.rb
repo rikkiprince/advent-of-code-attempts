@@ -1,3 +1,5 @@
+require 'set'
+
 def validate_boarding_pass(pass)
   m = /^(?<row>[FB]{7})(?<column>[LR]{3})$/.match(pass)
   return m["row"], m["column"]
@@ -14,7 +16,7 @@ end
 # Load all lines into list
 lines = File.readlines("input.txt")
 
-s = lines.map do |boarding_pass|
+seat_ids = lines.map do |boarding_pass|
   row_text,column_text = validate_boarding_pass(boarding_pass)
 
   row_number = calculate_row_number(row_text)
@@ -24,4 +26,12 @@ s = lines.map do |boarding_pass|
   puts "row #{row_number}, column #{column_number}, seat ID #{seat_id}"
   seat_id
 end
-puts s.max
+puts seat_ids.max
+
+puts "range: [#{seat_ids.min},#{seat_ids.max}]"
+
+(seat_ids.min..seat_ids.max).each do |n|
+  if !seat_ids.include?(n) then
+    puts "Found: #{n}"
+  end 
+end
