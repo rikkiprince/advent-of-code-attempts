@@ -25,7 +25,7 @@ class RuleLookup
 end
 
 # Load all lines into list
-rules = File.readlines("example.txt")
+rules = File.readlines("input.txt")
 
 r = RuleLookup.new(rules)
 
