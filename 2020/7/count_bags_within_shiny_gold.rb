@@ -1,6 +1,7 @@
 require 'Set'
 
 class RuleLookup
+  # Note: would be more memory efficient to store a hash of "colour => count"
   def initialize(rules)
     @children_of = Hash.new {|h,k| h[k] = []}
 
@@ -16,6 +17,7 @@ class RuleLookup
     end
   end
 
+  # Note: Does not handle recursive loops
   def get_all_children_of(target)
     children = @children_of[target]
     grand_children = []
