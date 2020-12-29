@@ -1,6 +1,6 @@
 require 'Set'
 # Load all lines into list
-operations = File.readlines("example.txt")
+operations = File.readlines("input.txt")
 
 seen = Set.new
 pc = 0
