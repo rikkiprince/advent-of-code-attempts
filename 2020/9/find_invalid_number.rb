@@ -18,5 +18,18 @@ puts "65: #{is_valid_next_number?(65, first_example[1,25])}"
 puts "64: #{is_valid_next_number?(64, first_example[1,25])}"
 puts "66: #{is_valid_next_number?(66, first_example[1,25])}"
 
+def find_invalid_number(numbers, preamble_length)
+  (0..(numbers.size - preamble_length - 1)).each do |offset|
+    previous_numbers = numbers[offset, preamble_length]
+    next_number = numbers[offset+preamble_length]
+    if !is_valid_next_number?(next_number, previous_numbers) then
+      puts "#{next_number} is NOT a valid next number after #{previous_numbers}?"
+      break
+    end
+  end
+end
+
 # Load all lines into list
-# operations = File.readlines("example.txt")
+numbers = File.readlines("example.txt")
+numbers.map!(&:to_i)
+find_invalid_number(numbers, 5)
