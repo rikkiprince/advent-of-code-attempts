@@ -29,7 +29,7 @@ def detect_infinite_loop(operations)
 end
 
 # Load all lines into list
-operations = File.readlines("example.txt")
+operations = File.readlines("input.txt")
 # puts "{Part 1: Accumulator immediately before infinite loop: #{detect_infinite_loop(operations)}"
 
 # Part 2
