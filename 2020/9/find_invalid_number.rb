@@ -30,6 +30,11 @@ def find_invalid_number(numbers, preamble_length)
 end
 
 # Load all lines into list
-numbers = File.readlines("example.txt")
+example_numbers = File.readlines("example.txt")
+example_numbers.map!(&:to_i)
+find_invalid_number(example_numbers, 5)
+
+# For actual input data
+numbers = File.readlines("input.txt")
 numbers.map!(&:to_i)
-find_invalid_number(numbers, 5)
+find_invalid_number(numbers, 25)
