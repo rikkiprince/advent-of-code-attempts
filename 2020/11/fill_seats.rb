@@ -45,7 +45,7 @@ def print_room(room)
 end
 
 # Load all lines into list
-lines = File.readlines("example.txt")
+lines = File.readlines("input.txt")
 print_room(lines)
 puts "\n------------\n\n"
 new_state = lines
