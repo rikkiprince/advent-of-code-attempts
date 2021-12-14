@@ -1,0 +1,26 @@
+#   segments
+1   2
+7   3
+4   4
+8   7
+
+2   5
+3   5
+5   5
+
+0   6
+6   6
+9   6
+
+Includes #1 "cf"
+0, 3, 9 (known: 4, 7, 8)
+
+Deciphering 2,3,5
+- remove "cf" (known from 1)
+- the one with 3 is 3
+- take those away from 4 and it tells you 5
+- last one is 2
+
+Deciphering 0,6,9
+- the one without "c" or "f" is 6
+- take away 1 and 5 and if it's empty it's 9 else 6
