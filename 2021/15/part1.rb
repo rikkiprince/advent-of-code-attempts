@@ -47,7 +47,7 @@ def construct_graph(lines)
 end
 
 def dijkstra(graph, source, target)
-  q = Set.new
+  q = Set.new     # note: would be better as a priority queue
 
   # Initialise distances
   dist = {}
